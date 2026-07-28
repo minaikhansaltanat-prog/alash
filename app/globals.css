@@ -56,13 +56,16 @@
 
   html {
     @apply font-sans scroll-smooth;
-    overflow-x: hidden;
+    /* overflow-x: clip (not hidden) blocks horizontal scroll without
+       creating a new scrolling container — "hidden" here would break
+       position: sticky on the header. */
+    overflow-x: clip;
     overscroll-behavior-x: none;
   }
 
   body {
     @apply bg-background text-foreground;
-    overflow-x: hidden;
+    overflow-x: clip;
     overscroll-behavior-x: none;
     -webkit-tap-highlight-color: transparent;
   }
