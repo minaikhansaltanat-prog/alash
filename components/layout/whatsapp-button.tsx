@@ -1,11 +1,14 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { useScrollVisible } from "@/lib/use-scroll-visible";
+import { cn } from "@/lib/utils";
 
 const WHATSAPP_URL = "https://wa.me/77763011110";
 
 export function WhatsAppButton() {
   const t = useTranslations("whatsapp");
+  const visible = useScrollVisible();
 
   return (
     <a
@@ -14,7 +17,10 @@ export function WhatsAppButton() {
       rel="noopener noreferrer"
       aria-label={t("label")}
       title={t("label")}
-      className="group fixed bottom-6 right-5 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg shadow-black/20 transition-transform cursor-pointer hover:scale-105 motion-reduce:hover:scale-100 sm:bottom-8 sm:right-8"
+      className={cn(
+        "group fixed bottom-6 right-5 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg shadow-black/20 transition-all duration-300 cursor-pointer hover:scale-105 motion-reduce:hover:scale-100 sm:bottom-8 sm:right-8",
+        visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0"
+      )}
     >
       <span
         aria-hidden="true"

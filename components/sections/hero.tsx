@@ -1,92 +1,133 @@
+"use client";
+
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { ArrowRight, PlayCircle, TrendingUp } from "lucide-react";
+import { ArrowRight, Play, TrendingUp } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
+import { VideoModal } from "@/components/sections/video-modal";
+
+const AVATARS = ["/photos/student-1.jpg", "/photos/student-2.jpg", "/photos/student-3.jpg"];
 
 export function Hero() {
   const t = useTranslations("hero");
+  const [videoOpen, setVideoOpen] = useState(false);
 
   return (
-    <section id="hero" className="relative overflow-hidden bg-paper pb-16 pt-12 sm:pb-24 sm:pt-16">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-40 -top-40 h-[28rem] w-[28rem] rounded-full bg-brandgreen/10 blur-3xl"
-      />
-      <div className="mx-auto grid max-w-container items-center gap-12 container-px lg:grid-cols-2 lg:gap-8">
+    <section id="hero" className="relative overflow-hidden bg-paper pb-14 pt-12 sm:pb-20 sm:pt-16 lg:pb-24">
+      <div className="mx-auto grid max-w-container items-center gap-10 container-px lg:grid-cols-[1fr_1.15fr] lg:gap-6 xl:gap-10">
         <div>
           <Reveal>
-            <span className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-3.5 py-1.5 text-xs font-semibold tracking-wide text-gold">
-              <TrendingUp className="h-3.5 w-3.5" />
+            <span className="inline-flex items-center gap-2.5 text-xs font-bold uppercase tracking-[0.14em] text-gold">
+              <span className="h-2 w-2 rotate-45 bg-gold" aria-hidden="true" />
               {t("eyebrow")}
             </span>
           </Reveal>
 
           <Reveal delay={0.08}>
-            <h1 className="mt-5 text-balance font-heading text-[2.35rem] font-semibold leading-[1.12] text-ink sm:text-5xl lg:text-[3.4rem]">
-              {t("h1")}
+            <h1 className="mt-4 text-balance font-heading text-[2.4rem] font-bold leading-[1.1] text-ink sm:text-5xl lg:text-[3.3rem]">
+              {t("h1Line1")}
+              <br />
+              {t("h1Line2")}
+              <br />
+              <span className="text-emerald">{t("h1Accent")}</span>
             </h1>
           </Reveal>
 
           <Reveal delay={0.16}>
-            <p className="mt-5 max-w-lg text-balance text-base leading-relaxed text-ink/65 sm:text-lg">
+            <p className="mt-5 max-w-md text-balance text-base leading-relaxed text-ink/65 sm:text-lg">
               {t("subtitle")}
             </p>
           </Reveal>
 
           <Reveal delay={0.24}>
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
+            <div className="mt-8 flex flex-col gap-5 sm:flex-row sm:items-center">
               <a
                 id="hero-cta"
                 href="#pricing"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-brandgreen px-7 py-3.5 text-base font-semibold text-white shadow-lg shadow-brandgreen/25 transition-transform hover:scale-[1.02] cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-brandgreen px-7 py-3.5 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-brandgreen/25 transition-transform hover:scale-[1.02] cursor-pointer"
               >
                 {t("ctaPrimary")}
                 <ArrowRight className="h-4.5 w-4.5" />
               </a>
-              <a
-                href="#ai-demo"
-                className="inline-flex items-center justify-center gap-2.5 text-sm font-semibold text-ink/70 transition-colors hover:text-emerald cursor-pointer"
+              <button
+                type="button"
+                onClick={() => setVideoOpen(true)}
+                className="inline-flex items-center gap-2.5 text-left text-sm font-bold text-ink/75 transition-colors hover:text-emerald cursor-pointer"
               >
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-sm">
-                  <PlayCircle className="h-5 w-5 text-emerald" />
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white shadow-sm">
+                  <Play className="ml-0.5 h-4 w-4 fill-emerald text-emerald" />
                 </span>
                 <span>
-                  {t("ctaSecondary")}
-                  <span className="block text-xs font-normal text-ink/45">{t("videoNote")}</span>
+                  <span className="block uppercase tracking-wide">{t("ctaSecondary")}</span>
+                  <span className="block text-xs font-normal normal-case text-ink/45">{t("videoNote")}</span>
                 </span>
-              </a>
+              </button>
             </div>
           </Reveal>
         </div>
 
-        <Reveal delay={0.1} className="relative mx-auto w-full max-w-md lg:max-w-none">
-          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[2.5rem] bg-emerald">
+        <Reveal delay={0.12} className="relative mx-auto w-full max-w-lg lg:max-w-none lg:-mr-4 xl:-mr-10">
+          <div className="relative aspect-[1250/768] w-full">
             <Image
-              src="/photos/student-1.jpg"
-              alt="ALASH BRIDGE оқушысы"
+              src="/hero/student-hero.png"
+              alt="ALASH BRIDGE оқушысы — Арманыңдағы университетке жол ашамыз"
               fill
               priority
-              sizes="(max-width: 1024px) 90vw, 480px"
-              className="relative z-10 object-cover object-top"
+              sizes="(max-width: 1024px) 92vw, 55vw"
+              className="object-contain object-center"
             />
-          </div>
 
-          <div className="absolute -left-4 top-6 z-20 w-52 rounded-card border border-ink/5 bg-white p-4 shadow-xl sm:-left-8 sm:w-60">
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-ink/40">
-              {t("resultCardTitle")}
-            </p>
-            <p className="mt-1 font-heading text-2xl font-bold text-emerald">{t("resultCardValue")}</p>
-            <p className="mt-1 text-xs font-medium text-brandgreen">{t("resultCardDelta")}</p>
-          </div>
+            {/* These sit exactly over the baked-in card graphics from the source
+                photo (see public/hero/student-hero.png) to replace them with
+                real, translatable markup — they must stay visible and aligned
+                to that position at every breakpoint, never hidden. */}
+            <div className="absolute right-0 top-[7%] w-[42%] min-w-[8rem] max-w-[15.5rem] rounded-card border border-ink/5 bg-white p-2 shadow-xl sm:top-[10%] sm:w-[40%] sm:min-w-[10rem] sm:p-4">
+              <p className="text-[8px] font-semibold uppercase leading-tight tracking-wide text-ink/40 sm:text-[11px]">
+                {t("resultCardTitle")}
+              </p>
+              <p className="mt-0.5 flex items-end gap-1 sm:mt-1 sm:gap-1.5">
+                <span className="font-heading text-sm font-bold text-emerald sm:text-2xl">
+                  {t("resultCardValue")}
+                </span>
+                <span className="pb-0.5 text-[9px] font-medium text-ink/50 sm:text-xs">
+                  {t("resultCardUnit")}
+                </span>
+                <TrendingUp className="ml-auto h-3 w-3 shrink-0 text-brandgreen sm:h-4 sm:w-4" />
+              </p>
+              <p className="mt-0.5 hidden text-xs font-medium leading-snug text-brandgreen sm:mt-1 sm:block">
+                {t("resultCardDelta")}
+              </p>
+            </div>
 
-          <div className="absolute -right-2 bottom-8 z-20 w-48 rounded-card border border-ink/5 bg-white p-4 shadow-xl sm:-right-6 sm:w-52">
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-ink/40">
-              {t("grantCardTitle")}
-            </p>
-            <p className="mt-1 font-heading text-2xl font-bold text-gold">{t("grantCardValue")}</p>
+            <div className="absolute bottom-[5%] right-0 w-[40%] min-w-[7.5rem] max-w-[13.5rem] rounded-card border border-ink/5 bg-white p-2 shadow-xl sm:bottom-[6%] sm:w-[38%] sm:min-w-[9.5rem] sm:p-4">
+              <p className="text-[8px] font-semibold uppercase leading-tight tracking-wide text-ink/40 sm:text-[11px]">
+                {t("grantCardTitle")}
+              </p>
+              <div className="mt-0.5 flex items-center justify-between gap-1.5 sm:mt-1 sm:gap-2">
+                <span className="font-heading text-sm font-bold text-gold sm:text-2xl">
+                  {t("grantCardValue")}
+                </span>
+                <span className="flex -space-x-1.5 sm:-space-x-2">
+                  {AVATARS.map((src) => (
+                    <span
+                      key={src}
+                      className="relative h-4 w-4 overflow-hidden rounded-full border-2 border-white sm:h-7 sm:w-7"
+                    >
+                      <Image src={src} alt="" fill sizes="28px" className="object-cover" />
+                    </span>
+                  ))}
+                  <span className="flex h-4 w-4 items-center justify-center rounded-full border-2 border-white bg-paper-dark text-[7px] font-bold text-ink/60 sm:h-7 sm:w-7 sm:text-[9px]">
+                    +
+                  </span>
+                </span>
+              </div>
+            </div>
           </div>
         </Reveal>
       </div>
+
+      <VideoModal open={videoOpen} onOpenChange={setVideoOpen} />
     </section>
   );
 }

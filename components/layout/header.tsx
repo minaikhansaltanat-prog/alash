@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { Menu } from "lucide-react";
+import { ArrowRight, Menu } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -42,7 +42,7 @@ export function Header() {
             <a
               key={key}
               href={NAV_HREF[key]}
-              className="text-sm font-medium text-ink/70 transition-colors hover:text-emerald cursor-pointer"
+              className="text-xs font-bold uppercase tracking-wide text-ink/70 transition-colors hover:text-emerald cursor-pointer"
             >
               {t(key)}
             </a>
@@ -56,7 +56,7 @@ export function Header() {
             type="button"
             aria-disabled="true"
             title="Жақында / Скоро"
-            className="rounded-full border border-ink/15 px-4 py-2 text-sm font-semibold text-ink/50 cursor-not-allowed"
+            className="rounded-full border border-ink/15 px-4 py-2 text-xs font-bold uppercase tracking-wide text-ink/50 cursor-not-allowed"
           >
             {t("login")}
           </button>
@@ -64,9 +64,10 @@ export function Header() {
             render={<a href="#hero-cta" />}
             nativeButton={false}
             size="lg"
-            className="rounded-full bg-brandgreen px-5 text-white hover:bg-brandgreen/90"
+            className="gap-1.5 rounded-full bg-brandgreen px-5 text-xs font-bold uppercase tracking-wide text-white hover:bg-brandgreen/90"
           >
             {t("freeTest")}
+            <ArrowRight className="h-4 w-4" />
           </Button>
         </div>
 

@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Sparkles, X, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useScrollVisible } from "@/lib/use-scroll-visible";
 
 interface Message {
   role: "assistant" | "user";
@@ -13,6 +14,7 @@ interface Message {
 
 export function AiAssistant() {
   const t = useTranslations("aiAssistant");
+  const visible = useScrollVisible();
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
@@ -69,7 +71,10 @@ export function AiAssistant() {
         aria-label={t("buttonLabel")}
         aria-expanded={open}
         title={t("buttonLabel")}
-        className="fixed bottom-24 right-5 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-emerald text-paper shadow-lg shadow-black/20 transition-transform cursor-pointer hover:scale-105 motion-reduce:hover:scale-100 sm:bottom-28 sm:right-8"
+        className={cn(
+          "fixed bottom-24 right-5 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-emerald text-paper shadow-lg shadow-black/20 transition-all duration-300 cursor-pointer hover:scale-105 motion-reduce:hover:scale-100 sm:bottom-28 sm:right-8",
+          visible || open ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0"
+        )}
       >
         {open ? <X className="h-6 w-6" /> : <Sparkles className="h-6 w-6" />}
       </button>
